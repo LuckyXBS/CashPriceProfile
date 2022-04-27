@@ -63,40 +63,68 @@
         <span></span>
       </div>
     </div>
+	    <div class="content">
+	<p style="font-size: 12.5px;text-align: center;">Начало: 25 Мая - Конец: 9 Мая</p>
+      <div class="countdown" style="margin-top: 10px;">00 : 00 : 00 : 00</div>
+    </div>
 	<div class="switch_title">
 <a>ОЖИДАНИЕ</a>
 </div>
-<div id="clockDisplay" class="clockStyle"></div>
   </div>
   
+  <style>
+  .countdown{
+  display: flex;
+    justify-content: center;
+    border-radius: 6px;
+    background: #edf0f7;
+    width: 234px;
+    flex-wrap: wrap;
+    margin: 0 auto 15px;
+	padding: 10px 25px;
+}
+  </style>
+  
   <script>
-  function renderTime() {
-			var currentTime = new Date();
-			var diem = "AM";
-			var h = currentTime.getHours();
-			var m = currentTime.getMinutes();
-			var s = currentTime.getSeconds();
-			setTimeout('renderTime()',1000);
-			if (h == 0) {
-				h = 12;
-			} else if (h > 12) { 
-				h = h - 12;
-				diem="PM";
-			}
-			if (h < 10) {
-				h = "0" + h;
-			}
-			if (m < 10) {
-				m = "0" + m;
-			}
-			if (s < 10) {
-				s = "0" + s;
-			}
-			var myClock = document.getElementById('clockDisplay');
-			myClock.textContent = h + ":" + m + ":" + s + " " + diem;
-			myClock.innerText = h + ":" + m + ":" + s + " " + diem;
-			}
-			renderTime();
+			
+			let launchDate = new Date("May 9, 2022 23:00:00").getTime();
+
+// Setup Timer to tick every 1 second
+let timer = setInterval(tick, 1000);
+
+function tick () {
+  // Get current time
+  let now = new Date().getTime();
+  // Get the difference in time to get time left until reaches 0
+  let t = launchDate - now;
+
+  // Check if time is above 0
+  if (t > 0) {
+    // Setup Days, hours, seconds and minutes
+    // Algorithm to calculate days...
+    let days = Math.floor(t / (1000 * 60 * 60 * 24));
+    // prefix any number below 10 with a "0" E.g. 1 = 01
+    if (days < 10) { days = "0" + days; }
+    
+    // Algorithm to calculate hours
+    let hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    if (hours < 10) { hours = "0" + hours; }
+
+    // Algorithm to calculate minutes
+    let mins = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+    if (mins < 10) { mins = "0" + mins; }
+
+    // Algorithm to calc seconds
+    let secs = Math.floor((t % (1000 * 60)) / 1000);
+    if (secs < 10) { secs = "0" + secs; }
+
+    // Create Time String
+    let time = `${days} : ${hours} : ${mins} : ${secs}`;
+
+    // Set time on document
+    document.querySelector('.countdown').innerText = time;
+  }
+}
   </script>
   
   
